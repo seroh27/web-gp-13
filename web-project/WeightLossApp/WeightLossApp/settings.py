@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1*^b(1+2(5$xdzr6ob=lx1zc*m7%s&*pta7=m9k%rth#2a-py7'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -77,13 +77,9 @@ WSGI_APPLICATION = 'WeightLossApp.wsgi.application'
 
 DATABASES = {
    'default': {
-       'ENGINE': 'django.db.backends.postgresql_psycopg2',
-       'NAME': 'Laghari',
-       'USER': 'control',
-       'PASSWORD': 'control',
-       'HOST': 'localhost',
-       'PORT': '8000',
-   }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 

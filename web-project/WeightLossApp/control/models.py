@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Food(models.Model):
-    food_name = models.CharField(primary_key=True)
+    food_name = models.CharField(max_length = 30,primary_key=True)
     food_calorie_per_hundred_gr = models.IntegerField()
     food_protein_per_hundred_gr = models.IntegerField()
     food_carb_per_hundred_gr = models.IntegerField()
