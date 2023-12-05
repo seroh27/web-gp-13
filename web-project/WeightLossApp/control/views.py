@@ -5,5 +5,5 @@ from .serializer import FoodSerializer
 def food_list(request):
     foods = Food.objects.all()
     food_serializer = FoodSerializer(foods,many = True)
-    return JsonResponse(food_serializer.data,safe = False)
+    return JsonResponse({"foodlist",food_serializer.data})
 # Create your views here.
