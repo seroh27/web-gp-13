@@ -1,3 +1,9 @@
 from django.shortcuts import render
-
+from django.http import  JsonResponse
+from control.models import Food
+from .serializer import FoodSerializer
+def food_list(request):
+    foods = Food.objects.all()
+    food_serializer = FoodSerializer(foods,many = True)
+    return JsonResponse(food_serializer.data,safe = False)
 # Create your views here.
