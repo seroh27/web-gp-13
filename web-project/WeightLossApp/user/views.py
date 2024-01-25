@@ -4,7 +4,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from datetime import datetime
-
+from user.serializer import RegisterationSerializer
+from rest_framework.authtoken.models import Token
 
 @api_view(['GET', 'POST'])
 def meal_list(request):
@@ -26,7 +27,20 @@ def meal_list(request):
         already_exists[0].save()
         return Response('modified', status=status.HTTP_201_CREATED)
 
-
+@api_view(['POST'])
+def registration_view(request):
+    if request.method == 'POST':
+        serializer = RegisterationSerializer(data=request.data)
+        data = {}
+        if serializer.is_valid():
+            user = serializer.save()
+            data['response'] = "successfully registered a new user."
+            token = Token.objects.get(user = user).key
+            data['user_id'] = user.user_id
+            data['token'] = token
+        else:
+            data = serializer.errors
+        return Response(data)
 @api_view(['GET', 'PUT', 'DELETE'])
 def meal_user_list(request, id, food, type,date):
     try:
