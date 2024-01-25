@@ -12,4 +12,4 @@ class UserSerializer(serializers.ModelSerializer):
 class MealSerializer(serializers.ModelSerializer):
     class Meta:
         model = Meal
-        fields = ['meal_user', 'meal_food', 'meal_type']
+        fields = ['meal_user', 'meal_food', 'meal_type','meal_amount','date_eaten']

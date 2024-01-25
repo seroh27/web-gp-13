@@ -28,3 +28,4 @@ class Meal(models.Model):  # TODO fix primary key
     meal_food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
     meal_type = models.CharField(max_length=30, choices=meals)
     meal_amount = models.FloatField(validators=[two_places_decimal])
+    date_eaten = models.DateField()
