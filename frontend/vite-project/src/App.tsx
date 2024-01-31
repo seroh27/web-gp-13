@@ -3,6 +3,7 @@ import NavBar from './components/NavBar.tsx';
 import HomePage from './components/pages/HomePage/HeroSection.tsx';
 import RegistrationForm from './components/pages/RegisterPage/RegisterPage.tsx';
 import LoginForm from './components/pages/LoginPage/LoginPage.tsx';
+import UserPanel from './components/pages/UserPage/UserPage.tsx';
 import * as text from './text.json';
 import { BrowserRouter as BrowserRouter, Routes , Route } from 'react-router-dom';
 import './App.css';
@@ -27,6 +28,10 @@ function App() {
                     <Route
                         path="/login"
                         element={<div><NavBar /><LoginForm /></div>}
+                    />
+                    <Route
+                        path="/panel"
+                        element={<div><UserPanel /></div>}
                     />
                 </Routes>
             </BrowserRouter>

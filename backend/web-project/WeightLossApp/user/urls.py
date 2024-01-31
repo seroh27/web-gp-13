@@ -6,6 +6,6 @@ urlpatterns = [
     path('meallist/', views.meal_list),
     path('meallist/<int:id>/<str:food>/<str:type>/<str:date>/', views.meal_user_list),
     path('register/', views.registration_view),
-    path('login/', obtain_auth_token),
+    path('login/', views.login_view),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
