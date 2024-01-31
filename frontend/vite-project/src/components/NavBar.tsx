@@ -7,15 +7,15 @@ function NavBar() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate()
-  // const navigation = [
-  //   { name: 'نتیبی', href: '#' },
-  //   { name: 'تماس با ما', href: '#' },
-  //   { name: 'ورود', href: '#' },
-  //   { name: 'ثبت نام', href: '#' },
-  // ];
+  const navigation = [
+    { name: 'درباره ما', href: '#' },
+    { name: 'تماس با ما', href: '#' },
+    { name:  'ثبت‌نام', href: '/register' },
+    { name: 'ورود', href: '/login' },
+  ];
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className="absolute inset-x-0 top-0 z-50 font">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
@@ -37,15 +37,13 @@ function NavBar() {
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          {/* <div className="hidden lg:flex lg:gap-x-12">
+          <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
-                {item.name}
-              </a>
+              <button onClick={() => navigate(item.href)} className="text-sm font-semibold leading-6 text-gray-900">{item.name}</button>
             ))}
-            </div>*/}
+            </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button onClick={() => navigate('login/')}>ورود</button>
+            <button onClick={() => navigate('/')}><b>دایتلی</b></button>
           </div>
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
@@ -66,7 +64,7 @@ function NavBar() {
             </div>
             <div className="mt-6 flow-root">
               <div className="-my-6 divide-y divide-gray-500/10">
-                {/* <div className="space-y-2 py-6">
+                <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <a
                       key={item.name}
@@ -76,7 +74,7 @@ function NavBar() {
                       {item.name}
                     </a>
                   ))}
-                </div> */}
+                </div>
                 <div className="py-6">
                   <a
                     href="#"

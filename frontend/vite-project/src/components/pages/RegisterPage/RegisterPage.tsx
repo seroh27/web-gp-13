@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+<<<<<<< HEAD
 import axios from "axios"
+=======
+import Axios from "axios"
+import '../../../App.css'
+>>>>>>> b3ff1796d9a360aff3bbd3d8cfcd23c735624997
 
 const RegistrationForm: React.FC = () => {
 
@@ -97,7 +102,7 @@ const RegistrationForm: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 font">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 dir="rtl" className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           شروع مسیر سلامتی با دایتلی!
