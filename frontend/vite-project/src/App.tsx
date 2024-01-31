@@ -22,11 +22,11 @@ function App() {
                     />
                     <Route
                         path="/register"
-                        element={<RegistrationForm />}
-                    />
+                        element={<div><NavBar /><RegistrationForm /></div>}
+                        />
                     <Route
                         path="/login"
-                        element={<LoginForm />}
+                        element={<div><NavBar /><LoginForm /></div>}
                     />
                 </Routes>
             </BrowserRouter>
