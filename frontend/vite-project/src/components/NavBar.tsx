@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useNavigate } from 'react-router-dom';
 
 function NavBar() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const navigate = useNavigate()
   // const navigation = [
   //   { name: 'نتیبی', href: '#' },
   //   { name: 'تماس با ما', href: '#' },
@@ -44,7 +45,7 @@ function NavBar() {
             ))}
             </div>*/}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button>ورود</button>
+            <button onClick={() => navigate('login/')}>ورود</button>
           </div>
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
