@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import axios from "axios"
-=======
-import Axios from "axios"
 import '../../../App.css'
->>>>>>> b3ff1796d9a360aff3bbd3d8cfcd23c735624997
 
 const RegistrationForm: React.FC = () => {
 

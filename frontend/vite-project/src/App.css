@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: 'IranSans';
-    src: url('./IRANSansWeb.ttf');
+    src: url('./assets/fonts/IRANSansWeb.ttf');
   }
 
   @font-face {
     font-family: 'IranSansBold';
-    src: url('./IRANSansWeb_Bold.ttf') format('truetype');
+    src: url('./assets/fonts/IRANSansWeb_Bold.ttf') format('truetype');
   }
   
   body {
