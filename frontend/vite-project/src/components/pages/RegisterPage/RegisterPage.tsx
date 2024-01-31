@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from "axios"
+import axios from 'axios'
 import '../../../App.css'
 
 const RegistrationForm: React.FC = () => {
@@ -13,11 +13,11 @@ const RegistrationForm: React.FC = () => {
     email: '',
     password: '',
     password2: '',
-    gender: '',
+    gender: 'Male',
     weight: '',
     height: '',
     age: '',
-    exercise_level: '',
+    exercise_level: 'little or no exercise',
   });
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
@@ -54,6 +54,10 @@ const RegistrationForm: React.FC = () => {
       setAgeLimit(true);
     }
 
+    if (name == "gender") {
+      console.log(value);
+    }
+
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
@@ -71,7 +75,7 @@ const RegistrationForm: React.FC = () => {
           "activity_level": formData.exercise_level,
           "password": formData.password,
           "password2": formData.password2,
-//          'gender': formData.gender,
+          "gender": formData.gender,
         };
         const response = await axios.post('http://localhost:8000/user/register/', modifiedFormData,
           {

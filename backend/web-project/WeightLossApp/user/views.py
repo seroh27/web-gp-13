@@ -40,7 +40,7 @@ def registration_view(request):
             token = Token.objects.get(user=user).key
             data['user_id'] = user.user_id
             data['token'] = token
-            return Response('created', status=status.HTTP_201_CREATED)
+            return Response(data, status=status.HTTP_201_CREATED)
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET', 'PUT', 'DELETE'])

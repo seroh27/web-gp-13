@@ -6,7 +6,7 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['user_id', 'first_name', 'last_name',
-                  'age', 'height', 'weight', 'activity_level']
+                  'age', 'height', 'weight', 'activity_level', 'gender']
 
 
 class MealSerializer(serializers.ModelSerializer):
@@ -20,7 +20,7 @@ class RegisterationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['user_id', 'first_name', 'last_name',
-                  'age', 'height', 'weight', 'activity_level','password','password2']
+                  'age', 'height', 'weight', 'activity_level','gender','password','password2']
         extra_kwargs = {
             'password' : {'write_only' : True}
         }
@@ -31,7 +31,8 @@ class RegisterationSerializer(serializers.ModelSerializer):
                     age = self.validated_data['age'],
                     height = self.validated_data['height'],
                     weight = self.validated_data['weight'],
-                    activity_level = self.validated_data['activity_level'])
+                    activity_level = self.validated_data['activity_level'],
+                    gender = self.validated_data['gender'])
         password = self.validated_data['password']
         password2 = self.validated_data['password2']
 

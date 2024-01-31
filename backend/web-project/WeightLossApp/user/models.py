@@ -10,7 +10,10 @@ from rest_framework.authtoken.models import Token
 activity = [('little or no exercise', '1'), ('light exercise', '2'), ('moderate exercise', '3'),
             ('hard exercise', '4'), ('very hard exercise', '5')]
 meals = [('breakfast', 'breakfast'), ('lunch', 'lunch'), ('dinner', 'dinner'), ('snack', 'snack')]
-
+GENDER_CHOICES = [
+    ('Male', 'Male'),
+    ('Female', 'Female'),
+]
 
 def two_places_decimal(x: float):
     return round(x, 2)
@@ -37,13 +40,14 @@ class CustomUserManager(BaseUserManager):
         return user
 
 class User(AbstractBaseUser):
-    user_id = models.CharField(max_length=10, unique=True)
+    user_id = models.CharField(max_length=50, unique=True)
     first_name = models.CharField(max_length=15,null=True, blank=True)
     last_name = models.CharField(max_length=15,null=True, blank=True)
     age = models.SmallIntegerField(validators=[MinValueValidator(12), MaxValueValidator(100)],null=True, blank=True)
     height = models.SmallIntegerField(validators=[MinValueValidator(120), MaxValueValidator(250)],null=True, blank=True)
     weight = models.FloatField(validators=[MinValueValidator(30), MaxValueValidator(150)],null=True, blank=True)
     activity_level = models.CharField(max_length=30,default=activity[1], choices=activity,null=True, blank=True)
+    gender = models.CharField(max_length=10, choices=GENDER_CHOICES, null=True, blank=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     objects = CustomUserManager()
