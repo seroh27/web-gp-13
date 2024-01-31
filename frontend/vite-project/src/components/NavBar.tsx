@@ -15,7 +15,7 @@ function NavBar() {
   // ];
 
   return (
-    <header className="absolute inset-x-0 top-0 z-50">
+    <header className="absolute inset-x-0 top-0 z-50 font">
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
@@ -45,7 +45,7 @@ function NavBar() {
             ))}
             </div>*/}
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button onClick={() => navigate('login/')}>ورود</button>
+            <button onClick={() => navigate('login/')}><b>ورود</b></button>
           </div>
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
