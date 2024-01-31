@@ -17,7 +17,10 @@ const LoginForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+    const modifiedFormData = {
+      "user_id": formData.email,
+      "password": formData.password,
+    };
   };
 
   return (

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Axios from "axios"
+import axios from "axios"
 
 const RegistrationForm: React.FC = () => {
 
@@ -19,13 +19,16 @@ const RegistrationForm: React.FC = () => {
     exercise_level: '',
   });
 
-  const [passwordsMatch, setPasswordsMatch] = useState(false);
-  const [emailFormat, setEmailFormat] = useState(false);
+  const [passwordsMatch, setPasswordsMatch] = useState(true);
+  const [uniqueEmail, setUniqueEmail] = useState(true);
+  const [ageLimit, setAgeLimit] = useState(true);
+  const [weightLimit, setWeightLimit] = useState(true);
+  const [heightLimit, setHeightLimit] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (name === 'password2') {
-      if (formData.password !== value) {
+      if (formData.password !== value && formData.password2 != '') {
         setPasswordsMatch(false);
       } else {
         setPasswordsMatch(true);
@@ -34,17 +37,28 @@ const RegistrationForm: React.FC = () => {
     else if (name == 'email') {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (emailRegex.test(value)) {
-        setEmailFormat(true);
+        setUniqueEmail(true);
       } else {
-        setEmailFormat(false);
+        setUniqueEmail(false);
       }
     }
+    
+    if (name == 'weight') {
+      setWeightLimit(true);
+    }
+    else if (name == 'height') {
+      setHeightLimit(true);
+    }
+    else if (name == 'age') {
+      setAgeLimit(true);
+    }
+
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    if (passwordsMatch && emailFormat) {
+    if (passwordsMatch) {
       try {
         const modifiedFormData = {
           "user_id": formData.email,
@@ -58,33 +72,26 @@ const RegistrationForm: React.FC = () => {
           "password2": formData.password2,
 //          'gender': formData.gender,
         };
-        Axios.post('http://localhost:8000/user/register/', modifiedFormData,
+        const response = await axios.post('http://localhost:8000/user/register/', modifiedFormData,
           {
             headers: {
                 "Content-Type": 'application/json'
             }
           }
         )
-        .then(res => console.log(res))
-        .catch(error => console.log(error))
-        /*const response = await fetch('http://localhost:8000/user/register/', {
-          method: 'POST',
-          body: modifiedFormData,
-        });
-
-        /*const response = await fetch('http://127.0.0.1:8000/user/meallist/1/egg/dinner/2024-01-25/', {
-          method: 'GET'
-        });
-  
-        if (response.ok) {
-          // Handle successful response
-          console.log('Form submitted successfully:', formData);
-        } else {
-          // Handle error response
-          console.error('Error submitting form:', response.statusText);
-        }*/
       } catch (error) {
-        console.error('Error submitting form');
+        if (error.response.data.hasOwnProperty("user_id")) {
+          setUniqueEmail(false);
+        }
+        if (error.response.data.hasOwnProperty("weight")) {
+          setWeightLimit(false);
+        }
+        if (error.response.data.hasOwnProperty("height")) {
+          setHeightLimit(false);
+        }
+        if (error.response.data.hasOwnProperty("age")) {
+          setAgeLimit(false);
+        }
       }
     }
   };
@@ -135,7 +142,7 @@ const RegistrationForm: React.FC = () => {
             <label dir="rtl" htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               نشانی ایمیل
             </label>
-            <div className="mt-2">
+            <div className={uniqueEmail ? "mt-2" : "mt-2"} style={uniqueEmail ? {} : { border: '2px solid red', borderRadius: '5px'}}>
               <input
                 id="email"
                 name="email"
@@ -143,7 +150,7 @@ const RegistrationForm: React.FC = () => {
                 autoComplete="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={emailFormat ? "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" : "block w-full rounded-md border-0 py-1.5 text-red-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -168,14 +175,14 @@ const RegistrationForm: React.FC = () => {
             <label dir="rtl" htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
               تکرار رمز عبور
             </label>
-            <div className="mt-2">
+            <div className={passwordsMatch ? "mt-2" : "mt-2"} style={passwordsMatch ? {} : { border: '2px solid red', borderRadius: '5px'}}>
               <input
                 id="password2"
                 name="password2"
                 type="password"
                 value={formData.password2}
                 onChange={handleChange}
-                className={passwordsMatch ? "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6": "block w-full border-0 rounded-md py-1.5 text-red-500 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"}
+                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -202,7 +209,7 @@ const RegistrationForm: React.FC = () => {
             <label htmlFor="weight" className="block text-sm font-medium leading-6 text-gray-900">
               وزن (کیلوگرم)
             </label>
-            <div className="mt-2">
+            <div className={weightLimit ? "mt-2" : "mt-2"} style={weightLimit ? {} : { border: '2px solid red', borderRadius: '5px'}}>
               <input
                 id="weight"
                 name="weight"
@@ -218,7 +225,7 @@ const RegistrationForm: React.FC = () => {
             <label htmlFor="height" className="block text-sm font-medium leading-6 text-gray-900">
               قد (سانتی متر)
             </label>
-            <div className="mt-2">
+            <div className={heightLimit ? "mt-2" : "mt-2"} style={heightLimit ? {} : { border: '2px solid red', borderRadius: '5px'}}>
               <input
                 id="height"
                 name="height"
@@ -234,7 +241,7 @@ const RegistrationForm: React.FC = () => {
             <label htmlFor="height" className="block text-sm font-medium leading-6 text-gray-900">
               سن
             </label>
-            <div className="mt-2">
+            <div className={ageLimit ? "mt-2" : "mt-2"} style={ageLimit ? {} : { border: '2px solid red', borderRadius: '5px'}}>
               <input
                 id="age"
                 name="age"

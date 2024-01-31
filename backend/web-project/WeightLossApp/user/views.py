@@ -40,9 +40,9 @@ def registration_view(request):
             token = Token.objects.get(user=user).key
             data['user_id'] = user.user_id
             data['token'] = token
+            return Response('created', status=status.HTTP_201_CREATED)
         else:
-            data = serializer.errors
-        return Response(data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 @api_view(['GET', 'PUT', 'DELETE'])
 def meal_user_list(request, id, food, type,date):
     try:
