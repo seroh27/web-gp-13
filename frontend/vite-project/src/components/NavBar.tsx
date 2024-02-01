@@ -9,7 +9,7 @@ function NavBar() {
   const navigate = useNavigate()
   const navigation = [
     { name: 'درباره ما', href: '/about-us' },
-    { name: 'تماس با ما', href: '#' },
+    { name: 'تماس با ما', href: '/contact' },
     { name:  'ثبت‌نام', href: '/register' },
     { name: 'ورود', href: '/login' },
   ];

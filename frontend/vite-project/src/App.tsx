@@ -8,6 +8,7 @@ import UserPanel from './components/pages/UserPage/UserPage.tsx';
 import * as text from './text.json';
 import { BrowserRouter as BrowserRouter, Routes , Route } from 'react-router-dom';
 import './App.css';
+import ContactUs from './components/pages/ContactUs/ContactUs.tsx';
 
 function App() {
 
@@ -37,6 +38,10 @@ function App() {
                     <Route
                         path="/panel"
                         element={<div><UserPanel /></div>}
+                    />
+                    <Route
+                        path="/contact"
+                        element={<div><NavBar /><ContactUs /></div>}
                     />
                 </Routes>
             </BrowserRouter>
