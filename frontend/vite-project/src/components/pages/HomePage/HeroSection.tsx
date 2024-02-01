@@ -17,7 +17,7 @@ export default function Example(props: Props) {
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-0">
             <img src={Avocado} alt="Avocado" style={{ width: '70%', margin: '0 auto' }} />
           <div className="text-center">
-            <Gradient color1='#220000' color2='#007777'/>
+            <Gradient />
             <h1 className="text-4xl font-bold tracking-tight text-emerald-900 sm:text-6xl">
               {props.BigTitle}
             </h1>
