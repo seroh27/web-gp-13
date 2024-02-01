@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Sharif\term 5\web\web-project\web-project"
+VIRTUAL_ENV="C:\Sharif\term 5\web\web-project-reworked"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
@@ -54,7 +54,7 @@ fi
 
 if [ -z "${VIRTUAL_ENV_DISABLE_PROMPT:-}" ] ; then
     _OLD_VIRTUAL_PS1="${PS1:-}"
-    PS1="(web-project) ${PS1:-}"
+    PS1="(web-project-reworked) ${PS1:-}"
     export PS1
 fi
 

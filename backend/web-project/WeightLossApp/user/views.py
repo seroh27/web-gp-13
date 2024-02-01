@@ -32,6 +32,8 @@ def meal_list(request):
 def login_view(request):
     user_id = request.data.get("user_id")
     password = request.data.get("password")
+    print(user_id)
+    print(password)
     user = authenticate(request, user_id=user_id, password=password)
     
     if user:

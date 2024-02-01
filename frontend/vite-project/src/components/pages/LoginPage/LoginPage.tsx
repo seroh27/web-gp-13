@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import Gradient from '../../gradient';
+import axios  from 'axios';
 const LoginForm: React.FC = () => {
 
   const navigate = useNavigate();
