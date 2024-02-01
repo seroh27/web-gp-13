@@ -3,9 +3,12 @@ import NavBar from './components/NavBar.tsx';
 import HomePage from './components/pages/HomePage/HeroSection.tsx';
 import RegistrationForm from './components/pages/RegisterPage/RegisterPage.tsx';
 import LoginForm from './components/pages/LoginPage/LoginPage.tsx';
+import AboutUs from './components/pages/AboutUs/AboutUs.tsx'
+import UserPanel from './components/pages/UserPage/UserPage.tsx';
 import * as text from './text.json';
 import { BrowserRouter as BrowserRouter, Routes , Route } from 'react-router-dom';
 import './App.css';
+import ContactUs from './components/pages/ContactUs/ContactUs.tsx';
 
 function App() {
 
@@ -27,6 +30,18 @@ function App() {
                     <Route
                         path="/login"
                         element={<div><NavBar /><LoginForm /></div>}
+                    />
+                                        <Route
+                        path="/about-us"
+                        element={<div><NavBar /><AboutUs /></div>}
+                    />
+                    <Route
+                        path="/panel"
+                        element={<div><UserPanel /></div>}
+                    />
+                    <Route
+                        path="/contact"
+                        element={<div><NavBar /><ContactUs /></div>}
                     />
                 </Routes>
             </BrowserRouter>
