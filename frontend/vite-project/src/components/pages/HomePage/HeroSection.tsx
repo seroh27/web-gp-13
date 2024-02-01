@@ -4,7 +4,7 @@ import '../../../App.css';
 import Gradient from '../../gradient';
 
 interface Props {
-  BigTitle : string;
+  BigTitle: string;
   Description: string;
 }
 
@@ -15,7 +15,7 @@ export default function Example(props: Props) {
     <div className="bg-white font">
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-0">
-            <img src={Avocado} alt="Avocado" style={{ width: '70%', margin: '0 auto' }} />
+          <img src={Avocado} alt="Avocado" style={{ width: '70%', margin: '0 auto' }} />
           <div className="text-center">
             <Gradient />
             <h1 className="text-4xl font-bold tracking-tight text-emerald-900 sm:text-6xl">
@@ -25,14 +25,9 @@ export default function Example(props: Props) {
               {props.Description}
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <button
-                className="rounded-md bg-emerald-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                onClick={() => navigate("/register")}
-              >
-                همین حالا شروع کنید
-              </button>
-              <a href="#" className="text-sm font-semibold leading-6 text-gray-900">
-                اطلاعات بیشتر <span aria-hidden="true">→</span>
+              <a target='_blank' onClick={() => navigate("/register")} className='group font-medium tracking-wide select-none text-base relative inline-flex items-center justify-center cursor-pointer h-12 border-2 border-solid py-0 px-6 rounded-md overflow-hidden z-10 transition-all duration-300 ease-in-out outline-0 bg-emerald-600 text-white border-emerald-700 hover:text-emerald-600 focus:text-emerald-600'>
+                <strong className='font-small' style={{ fontSize: '24px' }}>همین حالا شروع کنید</strong>
+                <span className='absolute bg-white bottom-0 w-0 left-1/2 h-full -translate-x-1/2 transition-all ease-in-out duration-300 group-hover:w-[105%] -z-[1] group-focus:w-[105%]'></span>
               </a>
             </div>
           </div>

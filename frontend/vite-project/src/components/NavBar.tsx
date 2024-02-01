@@ -12,6 +12,7 @@ function NavBar() {
     { name: 'تماس با ما', href: '/contact' },
     { name:  'ثبت‌نام', href: '/register' },
     { name: 'ورود', href: '/login' },
+    { name: 'پنل', href: '/panel' },
   ];
 
   return (
