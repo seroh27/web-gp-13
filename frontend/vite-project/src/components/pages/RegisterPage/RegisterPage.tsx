@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import '../../../App.css'
 import Gradient from '../../gradient';
-import { ExclamationCircleIcon } from '@heroicons/react/20/solid'
 
 const RegistrationForm: React.FC = () => {
 
