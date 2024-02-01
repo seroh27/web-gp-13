@@ -1,6 +1,9 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import CircularProgress from '../../circularProgressBar'
+import { useNavigate } from 'react-router-dom'
+import { BrowserRouter , Routes, Route } from 'react-router-dom'
 
 const user = {
   name: localStorage.getItem('first_name'),
@@ -8,17 +11,15 @@ const user = {
   imageUrl: '',
 }
 const navigation = [
-  { name: 'پنل من', href: '#', current: true },
-  { name: 'وعده‌های امروز', href: '#', current: false },
-  { name: 'تاریخچه', href: '#', current: false },
-  { name: 'محاسبۀ کالری', href: '#', current: false },
+  { name: 'پنل من', href: '/', current: true },
+  { name: 'وعده‌های امروز', href: '/todaymeals', current: false },
+  { name: 'تاریخچه', href: '/history', current: false },
+  { name: 'محاسبۀ کالری', href: '/caloriecalc', current: false },
 ]
 const userNavigation = [
-  { name: 'به‌روزرسانی اطلاعات', href: '#' },
-  { name: 'Settings', href: '#' },
-  { name: 'Sign out', href: '#' },
+  { name: 'به‌روزرسانی اطلاعات', href: '/updateinfo' },
+  { name: 'خروج', href: '/' },
 ]
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
@@ -185,9 +186,17 @@ export default function UserPanel() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">{/* Your content */}</div>
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"><CircularProgress value={1500} min={0} max={2500} size={150} strokeWidth={10}/></div>
         </main>
       </div>
+      <BrowserRouter>
+                <Routes>
+                    <Route
+                      path='/todaymeals'
+                      element={<div><CircularProgress value={1500} min={0} max={2500} size={150} strokeWidth={10}/></div>}
+                    />
+                </Routes>
+            </BrowserRouter>
     </>
   )
 }
