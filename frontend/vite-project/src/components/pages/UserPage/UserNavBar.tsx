@@ -7,24 +7,25 @@ const user = {
     name: localStorage.getItem('first_name'),
     email: localStorage.getItem('user_id'),
     imageUrl: '',
-  }
-  const navigation = [
-    { name: 'پنل من', href: '/', current: true },
-    { name: 'وعده‌های امروز', href: '/todaymeals', current: false },
-    { name: 'تاریخچه', href: '/history', current: false },
-    { name: 'محاسبۀ کالری', href: '/caloriecalc', current: false },
-  ]
-  const userNavigation = [
-    { name: 'به‌روزرسانی اطلاعات', href: '/updateinfo' },
+}
+const navigation = [
+    { name: 'پنل من', href: '/panel' },
+    { name: 'وعده‌های امروز', href: '/todaymeals' },
+    { name: 'تاریخچه', href: '/mealhistory' },
+    { name: 'محاسبۀ کالری', href: '/caloriecalc' },
+]
+const userNavigation = [
+    { name: 'به‌روزرسانی اطلاعات', href: '/editinfo' },
     { name: 'خروج', href: '/' },
-  ]
-  function classNames(...classes) {
+]
+function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
-  }
+}
+
 
 function UserNavBar() {
     return (
-        <Disclosure as="nav" className="bg-gray-800">
+        <Disclosure dir="rtl" as="nav" className="bg-gray-800">
           {({ open }) => (
             <>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -37,12 +38,9 @@ function UserNavBar() {
                             key={item.name}
                             href={item.href}
                             className={classNames(
-                              item.current
-                                ? 'bg-gray-900 text-white'
-                                : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                              'rounded-md px-3 py-2 text-sm font-medium'
+                                'text-gray-300 hover:bg-gray-700 hover:text-white',
+                                'rounded-md px-3 py-2 text-sm font-medium'
                             )}
-                            aria-current={item.current ? 'page' : undefined}
                           >
                             {item.name}
                           </a>
@@ -122,10 +120,9 @@ function UserNavBar() {
                       as="a"
                       href={item.href}
                       className={classNames(
-                        item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
+                        'text-gray-300 hover:bg-gray-700 hover:text-white',
                         'block rounded-md px-3 py-2 text-base font-medium'
                       )}
-                      aria-current={item.current ? 'page' : undefined}
                     >
                       {item.name}
                     </Disclosure.Button>

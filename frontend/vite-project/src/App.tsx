@@ -1,4 +1,3 @@
-import React from 'react';
 import NavBar from './components/NavBar.tsx';
 import HomePage from './components/pages/HomePage/HeroSection.tsx';
 import RegistrationForm from './components/pages/RegisterPage/RegisterPage.tsx';
@@ -9,6 +8,11 @@ import * as text from './text.json';
 import { BrowserRouter as BrowserRouter, Routes , Route } from 'react-router-dom';
 import './App.css';
 import ContactUs from './components/pages/ContactUs/ContactUs.tsx';
+import UserNavBar from './components/pages/UserPage/UserNavBar.tsx';
+import EditInfoForm from './components/pages/UserPage/editInfo.tsx';
+import TodayMeals from './components/pages/UserPage/TodayMeals.tsx';
+import MealHistory from './components/pages/UserPage/MealHistory.tsx';
+import CalorieCalc from './components/pages/UserPage/CalorieCalc.tsx';
 
 function App() {
 
@@ -36,12 +40,28 @@ function App() {
                         element={<div><NavBar /><AboutUs /></div>}
                     />
                     <Route
-                        path="/panel"
-                        element={<div><UserPanel /></div>}
-                    />
-                    <Route
                         path="/contact"
                         element={<div><NavBar /><ContactUs /></div>}
+                    />
+                    <Route
+                        path="/panel"
+                        element={<div><UserNavBar /><UserPanel /></div>}
+                    />
+                    <Route
+                        path="/todaymeals"
+                        element={<div><UserNavBar /><TodayMeals /></div>}
+                    />
+                    <Route
+                        path="/mealhistory"
+                        element={<div><UserNavBar /><MealHistory /></div>}
+                    />
+                    <Route
+                        path="/caloriecalc"
+                        element={<div><UserNavBar /><CalorieCalc /></div>}
+                    />
+                    <Route
+                      path="/editInfo"
+                      element={<div><UserNavBar /><EditInfoForm /></div>}
                     />
                 </Routes>
             </BrowserRouter>
