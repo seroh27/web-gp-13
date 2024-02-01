@@ -39,9 +39,12 @@ def login_view(request):
     print(user_id)
     print(password)
     user = authenticate(request, user_id=user_id, password=password)
-    
     if user:
-        return Response(Token.objects.get(user=user).key, status=200)
+        response = {
+            "token": Token.objects.get(user=user).key,
+            "first_name": user.first_name,
+        }
+        return Response(response, status=200)
     return Response('incorrect email or password', status=400)
 
 @api_view(['POST'])

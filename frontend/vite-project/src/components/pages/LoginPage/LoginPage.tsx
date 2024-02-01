@@ -33,7 +33,8 @@ const LoginForm: React.FC = () => {
         }
       )
       setRedirectToUserPanel(true);
-      localStorage.setItem('token', response.data)
+      localStorage.setItem('token', response.data.token)
+      localStorage.setItem('first_name', response.data.first_name)
     } catch (error) {
       setWrongInfo(true);
       console.log(error.response.data);
