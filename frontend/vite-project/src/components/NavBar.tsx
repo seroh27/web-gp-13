@@ -8,7 +8,7 @@ function NavBar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate()
   const navigation = [
-    { name: 'درباره ما', href: '#' },
+    { name: 'درباره ما', href: '/about-us' },
     { name: 'تماس با ما', href: '#' },
     { name:  'ثبت‌نام', href: '/register' },
     { name: 'ورود', href: '/login' },
@@ -19,7 +19,7 @@ function NavBar() {
         <nav className="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <a href="#" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+              <span className="sr-only">Dietly</span>
               <img
                 className="h-8 w-auto"
                 src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
@@ -43,7 +43,7 @@ function NavBar() {
             ))}
             </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <button onClick={() => navigate('/')}><b>دایتلی</b></button>
+            <button onClick={() => navigate('/')}><span style={{color: "#335B2D"}}><b className='boldfont'>دایتلی</b></span></button>
           </div>
         </nav>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={setMobileMenuOpen}>

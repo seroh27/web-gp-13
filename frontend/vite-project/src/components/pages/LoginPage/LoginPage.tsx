@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Gradient from '../../gradient';
 
 const LoginForm: React.FC = () => {
 
@@ -31,8 +32,10 @@ const LoginForm: React.FC = () => {
         </h2>
       </div>
 
+      <Gradient />
+
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" onSubmit={handleSubmit}>
+        <form className="space-y-8" onSubmit={handleSubmit}>
           <div>
             <label dir="rtl" htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               نشانی ایمیل
@@ -46,6 +49,7 @@ const LoginForm: React.FC = () => {
                 value={formData.email}
                 onChange={handleChange}
                 className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                placeholder='you@example.com'
               />
             </div>
           </div>
@@ -69,7 +73,7 @@ const LoginForm: React.FC = () => {
           <div>
             <button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               ورود
             </button>
@@ -78,7 +82,7 @@ const LoginForm: React.FC = () => {
 
         <p dir="rtl" className="mt-10 text-center text-sm text-gray-500">
           حسابی ندارید؟&nbsp;
-          <button onClick={() => navigate('/register')} className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+          <button onClick={() => navigate('/register')} className="font-semibold leading-6 text-emerald-700 hover:text-emerald-600">
             شروع کنید
           </button>
         </p>
