@@ -1,4 +1,4 @@
-from user.models import Meal
+from user.models import Meal, User
 from .serializer import MealSerializer, UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -6,6 +6,7 @@ from rest_framework import status
 from datetime import datetime
 from user.serializer import RegisterationSerializer
 from rest_framework.authtoken.models import Token
+from django.contrib.auth import login, authenticate
 
 @api_view(['GET', 'POST'])
 def meal_list(request):
@@ -26,6 +27,16 @@ def meal_list(request):
         already_exists[0].meal_amount += float(request.data['meal_amount'])
         already_exists[0].save()
         return Response('modified', status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+def login_view(request):
+    user_id = request.data.get("user_id")
+    password = request.data.get("password")
+    user = authenticate(request, user_id=user_id, password=password)
+    
+    if user:
+        return Response(Token.objects.get(user=user).key, status=200)
+    return Response('incorrect email or password', status=400)
 
 @api_view(['POST'])
 def registration_view(request):

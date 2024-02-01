@@ -1,28 +1,47 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Gradient from '../../gradient';
 
 const LoginForm: React.FC = () => {
 
   const navigate = useNavigate();
-
+  const [redirectToUserPanel, setRedirectToUserPanel] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+  const [wrongInfo, setWrongInfo] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+    setWrongInfo(false);
     setFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    const modifiedFormData = {
-      "user_id": formData.email,
-      "password": formData.password,
-    };
+    try {
+      const modifiedFormData = {
+        "user_id": formData.email,
+        "password": formData.password,
+      };
+      const response = await axios.post('http://localhost:8000/user/login/', modifiedFormData,
+        {
+          headers: {
+              "Content-Type": 'application/json'
+          }
+        }
+      )
+      setRedirectToUserPanel(true);
+      localStorage.setItem('token', response.data)
+    } catch (error) {
+      setWrongInfo(true);
+      console.log(error.response.data);
+    }
   };
+
+  if (redirectToUserPanel) {
+    navigate('/panel')
+  }
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8 font">
@@ -77,6 +96,10 @@ const LoginForm: React.FC = () => {
             >
               ورود
             </button>
+            <br />
+            {wrongInfo ? <p dir="rtl" style={{color: 'red', }}>
+              ایمیل یا رمز عبور وارد شده اشتباه است!
+            </p> : null}
           </div>
         </form>
 
