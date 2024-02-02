@@ -18,7 +18,7 @@ export default function UserPanel() {
           </div>
         </header>
         <main>
-          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"><CircularProgress value={1500} min={0} max={2500} size={150} strokeWidth={10}/></div>
+          <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"><CircularProgress value={1500} min={0} max={2500} size={150} strokeWidth={10} /></div>
         </main>
       </div>
     </>

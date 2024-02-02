@@ -1,7 +1,8 @@
+import Table from './table';
 function TodayMeals() {
 
     return (
-        <p>today meal</p>
+        <Table />
     )
 }
 
