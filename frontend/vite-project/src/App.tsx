@@ -3,9 +3,9 @@ import HomePage from './components/pages/HomePage/HeroSection.tsx';
 import RegistrationForm from './components/pages/RegisterPage/RegisterPage.tsx';
 import LoginForm from './components/pages/LoginPage/LoginPage.tsx';
 import AboutUs from './components/pages/AboutUs/AboutUs.tsx'
-import UserPanel from './components/pages/UserPage/UserPage.tsx';
+import UserPanel from './components/pages/UserPage/MyPanel.tsx';
 import * as text from './text.json';
-import { BrowserRouter as BrowserRouter, Routes , Route } from 'react-router-dom';
+import { BrowserRouter as BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import ContactUs from './components/pages/ContactUs/ContactUs.tsx';
 import UserNavBar from './components/pages/UserPage/UserNavBar.tsx';
@@ -16,26 +16,26 @@ import CalorieCalc from './components/pages/UserPage/CalorieCalc.tsx';
 
 function App() {
 
-  return (
-    <>
-      <BrowserRouter>
+    return (
+        <>
+            <BrowserRouter>
                 <Routes>
                     <Route
                         path="/"
                         element={<div>
-                          <NavBar />
-                          <HomePage BigTitle={text.HomePage.BigTitle} Description={text.HomePage.Description}/>
+                            <NavBar />
+                            <HomePage BigTitle={text.HomePage.BigTitle} Description={text.HomePage.Description} />
                         </div>}
                     />
                     <Route
                         path="/register"
                         element={<div><NavBar /><RegistrationForm /></div>}
-                        />
+                    />
                     <Route
                         path="/login"
                         element={<div><NavBar /><LoginForm /></div>}
                     />
-                                        <Route
+                    <Route
                         path="/about-us"
                         element={<div><NavBar /><AboutUs /></div>}
                     />
@@ -48,10 +48,6 @@ function App() {
                         element={<div><UserNavBar /><UserPanel /></div>}
                     />
                     <Route
-                        path="/todaymeals"
-                        element={<div><UserNavBar /><TodayMeals /></div>}
-                    />
-                    <Route
                         path="/mealhistory"
                         element={<div><UserNavBar /><MealHistory /></div>}
                     />
@@ -60,13 +56,13 @@ function App() {
                         element={<div><UserNavBar /><CalorieCalc /></div>}
                     />
                     <Route
-                      path="/editInfo"
-                      element={<div><UserNavBar /><EditInfoForm /></div>}
+                        path="/editInfo"
+                        element={<div><UserNavBar /><EditInfoForm /></div>}
                     />
                 </Routes>
             </BrowserRouter>
-    </>
-  );
+        </>
+    );
 }
 
 export default App;

@@ -20,3 +20,11 @@
   .boldfont {
     font-family: 'IranSansBold';
   }
+
+  .image-zoom img {
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-zoom img:hover {
+    transform: scale(1.2);
+}
