@@ -1,4 +1,6 @@
 import { useState , useEffect } from "react"
+import axios from "axios";
+
 
 interface Row {
     name: string;
@@ -18,7 +20,7 @@ interface Food {
     food_fat_per_hundred_gr: number;
 }
 
-export default function Table() {
+const Table = () => {
     const [rows, setRows] = useState<Row[]>([]);
     const [newRowWeight, setNewRowWeight] = useState<number>(0);
     const [selectedFood, setSelectedFood] = useState<string>('ghorme');
@@ -30,6 +32,23 @@ export default function Table() {
           .then(data => setAllFoods(data))
           .catch(error => console.error('Error fetching food list:', error));
       }, []);
+
+    const handleMeal = async(meal) => {
+        try {
+            const response = await axios.post('http://localhost:8000/user/meallist/', meal,
+                {
+                    headers: {
+                        "Content-Type": 'application/json'
+                    }
+                }
+            )
+            console.log(response.data)
+        }
+        catch (e) {
+            console.log("not added to back");
+            console.log(e.response.data);
+        }
+    }
     const addRow = () => {
         if (selectedFood && newRowWeight && selectedMeal) {
             let i = 0;
@@ -38,25 +57,52 @@ export default function Table() {
                     break;
                 }
             }
-          const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
-          const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
-          const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
-          const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+            const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+            const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+            const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+            const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
     
-          const newRow: Row = {
-            name: selectedFood,
-            weight: newRowWeight,
-            meal: selectedMeal,
-            carb: newCarb,
-            calorie: newCalorie,
-            protein: newProtein,
-            fat: newFat,
-          };
-    
-          setRows([...rows, newRow]);
-          setSelectedFood('');
-          setSelectedMeal('صبحانه');
-          setNewRowWeight(0);
+            const newRow: Row = {
+                name: selectedFood,
+                weight: newRowWeight,
+                meal: selectedMeal,
+                carb: newCarb,
+                calorie: newCalorie,
+                protein: newProtein,
+                fat: newFat,
+            };
+
+            let mealType = "";
+            if (selectedMeal == 'صبحانه') {
+                mealType = "breakfast";
+            }
+            if (selectedMeal == 'نهار') {
+                mealType = "lunch";
+            }
+            if (selectedMeal == 'میان‌وعده') {
+                mealType = "snack";
+            }
+            if (selectedMeal == 'شام') {
+                mealType = "dinner";
+            }
+            const meal = {
+                "token": localStorage.getItem('token'),
+                "meal_food": selectedFood,
+                "meal_type": mealType,
+                "meal_amount": newRowWeight,
+                "date_eaten": new Date()
+            }
+            console.log(meal);
+            try {
+                handleMeal(meal);
+                setRows([...rows, newRow]);
+                setSelectedFood('');
+                setSelectedMeal('صبحانه');
+                setNewRowWeight(0);
+            }
+            catch (e) {
+                console.log("not added to front");
+            }
         }
       };
     return (
@@ -105,8 +151,8 @@ export default function Table() {
                                     </tr>
                                 </thead>
                                 <tbody dir='rtl' className="divide-y divide-gray-200 bg-white">
-                                    {rows.map((row) => (
-                                        <tr key={row.name} className="even:bg-gray-50 odd:bg-white">
+                                    {rows.map((row, index) => (
+                                        <tr key={row.name + index} className="even:bg-gray-50 odd:bg-white">
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.fat}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.carb}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.protein}</td>
@@ -183,3 +229,5 @@ export default function Table() {
         </div>
     )
 }
+
+export default Table

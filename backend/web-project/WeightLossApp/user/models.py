@@ -63,12 +63,12 @@ class User(AbstractBaseUser):
     def is_staff(self):
         return self.is_admin
 
-class Meal(models.Model):  # TODO fix primary key
+class Meal(models.Model):
     meal_user = models.ForeignKey(to=User, on_delete=models.CASCADE)
     meal_food = models.ForeignKey(to=Food, on_delete=models.CASCADE)
     meal_type = models.CharField(max_length=30, choices=meals)
     meal_amount = models.FloatField(validators=[two_places_decimal])
-    date_eaten = models.DateField()
+    date_eaten = models.CharField(max_length=100)
 @receiver(post_save,sender =  settings.AUTH_USER_MODEL)
 def create_auth_token(sender,instance=None,created=False,**kwargs):
     if(created):

@@ -1,5 +1,5 @@
 from user.models import Meal, User
-from .serializer import MealSerializer, UserSerializer
+from .serializer import MealSerializer
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
@@ -12,6 +12,7 @@ from django.db.models import Sum
 from django.db.models import F
 from django.shortcuts import get_object_or_404
 from control.models import Food
+import copy
 @api_view(['GET', 'POST'])
 def meal_list(request):
     print(request.data)
@@ -21,12 +22,14 @@ def meal_list(request):
     except:
         return Response('invalid token')
     if request.method == 'GET':
-        meals = Meal.objects.filter(meal_user=token.user.user_id)
+        meals = Meal.objects.filter(meal_user_id=token.user.id)
         meal_serializer = MealSerializer(meals, many=True)
         return Response(meal_serializer.data)
     if request.method == 'POST':
-        serializer = MealSerializer(data=request.data)
-        already_exists = Meal.objects.filter(meal_user=request.data['meal_user'],
+        data = copy.deepcopy(request.data)
+        data['meal_user'] = token.user.id
+        serializer = MealSerializer(data=data)
+        already_exists = Meal.objects.filter(meal_user=token.user.id,
                                              meal_food=request.data['meal_food'],
                                              meal_type=request.data['meal_type'],
                                              date_eaten=request.data['date_eaten'])
@@ -34,6 +37,8 @@ def meal_list(request):
             if serializer.is_valid():
                 serializer.save()
                 return Response('added', status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
         already_exists[0].meal_amount += float(request.data['meal_amount'])
         already_exists[0].save()
         return Response('modified', status=status.HTTP_201_CREATED)
