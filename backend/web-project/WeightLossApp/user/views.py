@@ -15,17 +15,31 @@ from control.models import Food
 import copy
 @api_view(['GET', 'POST'])
 def meal_list(request):
-    print(request.data)
-    token = request.data['token']
-    try:
-        token = Token.objects.get(key=token)
-    except:
-        return Response('invalid token')
     if request.method == 'GET':
-        meals = Meal.objects.filter(meal_user_id=token.user.id)
+        print('-------------', request.headers['Authorization'], '---------------')
+        meals = Meal.objects.filter(meal_user_id=Token.objects.get(key=request.headers['Authorization']).user.id)
         meal_serializer = MealSerializer(meals, many=True)
-        return Response(meal_serializer.data)
+        respone = []
+        for data in meal_serializer.data:
+            if str(data['date_eaten'][:10]) != str(datetime.today().date()):
+                continue
+            food = Food.objects.get(food_name=data['meal_food'])
+            respone.append({
+                'name': data['meal_food'],
+                'weight': data['meal_amount'],
+                'meal': 'صبحانه' if data['meal_type'] == 'breakfast' else 'نهار' if data['meal_type'] == 'lunch' else 'شام' if data['meal_type'] == 'dinner' else 'میان‌وعده',
+                'calorie': data['meal_amount'] * food.food_calorie_per_hundred_gr,
+                'carb': data['meal_amount'] * food.food_carb_per_hundred_gr,
+                'fat': data['meal_amount'] * food.food_fat_per_hundred_gr,
+                'protein': data['meal_amount'] * food.food_protein_per_hundred_gr,
+            })
+        return Response(respone)
     if request.method == 'POST':
+        token = request.data['token']
+        try:
+            token = Token.objects.get(key=token)
+        except:
+            return Response('invalid token')
         data = copy.deepcopy(request.data)
         data['meal_user'] = token.user.id
         serializer = MealSerializer(data=data)

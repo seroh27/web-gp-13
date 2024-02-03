@@ -26,13 +26,26 @@ const Table = () => {
     const [selectedFood, setSelectedFood] = useState<string>('ghorme');
     const [selectedMeal, setSelectedMeal] = useState<string>('صبحانه');
     const [all_foods, setAllFoods] = useState<Food[]>([]);
+    const [count, setCount] = useState(0);
     useEffect(() => {
         fetch('http://localhost:8000/control/foods/')
           .then(response => response.json())
           .then(data => setAllFoods(data))
           .catch(error => console.error('Error fetching food list:', error));
       }, []);
-
+    useEffect(() => {
+        axios.get('http://localhost:8000/user/meallist/', {
+            headers: {
+                "Content-Type": 'application/json',
+                "Authorization": localStorage.getItem('token')
+            }
+        })
+        .then(data => {
+            setRows(data.data)
+        })
+        .catch((err) => console.error(err));
+        setCount(100);
+    }, [])
     const handleMeal = async(meal) => {
         try {
             const response = await axios.post('http://localhost:8000/user/meallist/', meal,
