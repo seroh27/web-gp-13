@@ -13,7 +13,7 @@ export default function Greeting() {
     const [consumedCal, setConsumedCal] = useState();
     const [__, setCount] = useState(0);
     useEffect(() => {
-        axios.get('http://localhost:8000/user/todaycal/', {
+        axios.get('http://localhost:4050/api/user/todaycal/', {
             headers: {
                 "Content-Type": 'application/json',
                 "Authorization": localStorage.getItem('token')

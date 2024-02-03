@@ -8,10 +8,9 @@ ENV PORT 5173
 
 WORKDIR /usr/src/app
 
-COPY ./package.json ./package-lock.json ./
-
+COPY ./package.json ./
+RUN npm i vite
 RUN npm i
-
 # Copy the rest of the source files into the image.
 COPY . .
 

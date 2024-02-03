@@ -28,7 +28,7 @@ export default function Example() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/user/weekcalreport/', {
+        const response = await axios.get('http://localhost:4050/api/user/weekcalreport/', {
           headers: {
             "Content-Type": 'application/json',
             "Authorization": localStorage.getItem('token')

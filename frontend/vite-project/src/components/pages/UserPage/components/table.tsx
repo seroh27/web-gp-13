@@ -28,13 +28,13 @@ const Table = () => {
     const [all_foods, setAllFoods] = useState<Food[]>([]);
     const [count, setCount] = useState(0);
     useEffect(() => {
-        fetch('http://localhost:8000/control/foods/')
+        fetch('http://localhost:4050/api/control/foods/')
           .then(response => response.json())
           .then(data => setAllFoods(data))
           .catch(error => console.error('Error fetching food list:', error));
       }, []);
     useEffect(() => {
-        axios.get('http://localhost:8000/user/meallist/', {
+        axios.get('http://localhost:4050/api/user/meallist/', {
             headers: {
                 "Content-Type": 'application/json',
                 "Authorization": localStorage.getItem('token')
@@ -48,7 +48,7 @@ const Table = () => {
     }, [])
     const handleMeal = async(meal) => {
         try {
-            const response = await axios.post('http://localhost:8000/user/meallist/', meal,
+            const response = await axios.post('http://localhost:4050/api/user/meallist/', meal,
                 {
                     headers: {
                         "Content-Type": 'application/json'
@@ -70,10 +70,10 @@ const Table = () => {
                     break;
                 }
             }
-            const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
-            const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
-            const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
-            const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+            const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100)));
+            const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100)));
+            const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100)));
+            const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100)));
     
             const newRow: Row = {
                 name: selectedFood,

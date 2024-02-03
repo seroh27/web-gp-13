@@ -7,7 +7,7 @@ export default function StatsBox() {
     const [totalCal, setTotalCal] = useState();
     const [count, setCount] = useState(0);
     useEffect(() => {
-        axios.get('http://localhost:8000/user/todaycal/', {
+        axios.get('http://localhost:4050/api/user/todaycal/', {
             headers: {
                 "Content-Type": 'application/json',
                 "Authorization": localStorage.getItem('token')

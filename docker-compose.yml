@@ -16,6 +16,7 @@ services:
     build: ./frontend/vite-project
     volumes:
       - ./frontend/vite-project:/usr/src/app
+      - /usr/src/app/node_modules
     depends_on:
       - web
     networks:
