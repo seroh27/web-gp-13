@@ -14,8 +14,14 @@ from django.shortcuts import get_object_or_404
 from control.models import Food
 @api_view(['GET', 'POST'])
 def meal_list(request):
+    print(request.data)
+    token = request.data['token']
+    try:
+        token = Token.objects.get(key=token)
+    except:
+        return Response('invalid token')
     if request.method == 'GET':
-        meals = Meal.objects.all()
+        meals = Meal.objects.filter(meal_user=token.user.user_id)
         meal_serializer = MealSerializer(meals, many=True)
         return Response(meal_serializer.data)
     if request.method == 'POST':

@@ -3,6 +3,7 @@ import { useState , useEffect } from "react"
 interface Row {
     name: string;
     weight: number;
+    meal: string;
     carb: number;
     calorie: number;
     protein: number;
@@ -20,7 +21,8 @@ interface Food {
 export default function Table() {
     const [rows, setRows] = useState<Row[]>([]);
     const [newRowWeight, setNewRowWeight] = useState<number>(0);
-    const [selectedFood, setSelectedFood] = useState<string>('');
+    const [selectedFood, setSelectedFood] = useState<string>('ghorme');
+    const [selectedMeal, setSelectedMeal] = useState<string>('صبحانه');
     const [all_foods, setAllFoods] = useState<Food[]>([]);
     useEffect(() => {
         fetch('http://localhost:8000/control/foods/')
@@ -29,21 +31,22 @@ export default function Table() {
           .catch(error => console.error('Error fetching food list:', error));
       }, []);
     const addRow = () => {
-        if (selectedFood && newRowWeight) {
+        if (selectedFood && newRowWeight && selectedMeal) {
             let i = 0;
             for (i = 0; i < all_foods.length; i++) {
                 if (all_foods[i].food_name == selectedFood) {
                     break;
                 }
             }
-          const newCalorie = all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100);
-          const newCarb = all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100);
-          const newProtein = all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100);
-          const newFat = all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100);
+          const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+          const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+          const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
+          const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100)).toFixed(1));
     
           const newRow: Row = {
             name: selectedFood,
             weight: newRowWeight,
+            meal: selectedMeal,
             carb: newCarb,
             calorie: newCalorie,
             protein: newProtein,
@@ -52,6 +55,7 @@ export default function Table() {
     
           setRows([...rows, newRow]);
           setSelectedFood('');
+          setSelectedMeal('صبحانه');
           setNewRowWeight(0);
         }
       };
@@ -81,6 +85,9 @@ export default function Table() {
                                             کالری
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
+                                            وعده
+                                        </th>
+                                        <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
                                             مقدار (گرم)
                                         </th>
                                         <th scope="col" className="px-3 py-3.5 text-right text-sm font-semibold text-gray-900">
@@ -104,10 +111,9 @@ export default function Table() {
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.carb}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.protein}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.calorie}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.meal}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.weight}</td>
-                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
-                                                {row.name}
-                                            </td>
+                                            <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">{row.name}</td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                                 <button className="text-emerald-600 hover:text-emerald-900">
                                                     ویرایش<span className="sr-only">, {row.name}</span>
@@ -120,6 +126,29 @@ export default function Table() {
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                            <select
+                                                value={selectedMeal}
+                                                onChange={(e) => {
+                                                    setSelectedFood(e.target.value);
+                                                    console.log(e.target.value);
+                                                }}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            >
+                                                <option key="breakfast" value="breakfast">
+                                                    صبحانه
+                                                </option>
+                                                <option key="dinner" value="dinner">
+                                                    شام
+                                                </option>
+                                                <option key="lunch" value="lunch">
+                                                    نهار
+                                                </option>
+                                                <option key="snack" value="snack">
+                                                    میان‌وعده
+                                                </option>
+                                            </select>
+                                        </td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
                                             <input className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                                                 type="number"
