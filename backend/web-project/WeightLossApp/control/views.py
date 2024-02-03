@@ -16,7 +16,7 @@ def food_list(request, format=None):
         food_serializer = FoodSerializer(foods, many=True)
         return Response(food_serializer.data)
     if request.method == 'POST':
-        serializer = FoodSerializer(data=request.data)
+        serializer = FoodSerializer(data=request.data, many=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -78,7 +78,7 @@ const RegistrationForm: React.FC = () => {
           "password2": formData.password2,
           "gender": formData.gender,
         };
-        const response = await axios.post('http://localhost:8000/user/register/', modifiedFormData,
+        const response = await axios.post('http://localhost:4050/api/user/register/', modifiedFormData,
           {
             headers: {
                 "Content-Type": 'application/json'

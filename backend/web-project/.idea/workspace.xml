@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="80642a34-df55-44bc-a0f3-4c370591b15c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/WeightLossApp/user/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/WeightLossApp/user/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/WeightLossApp/user/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WeightLossApp/user/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeightLossApp/WeightLossApp/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/WeightLossApp/WeightLossApp/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WeightLossApp/control/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/WeightLossApp/control/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/vite-project/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/vite-project/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/vite-project/src/components/pages/LoginPage/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/vite-project/src/components/pages/LoginPage/LoginPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../frontend/vite-project/src/components/pages/RegisterPage/RegisterPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../../frontend/vite-project/src/components/pages/RegisterPage/RegisterPage.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
