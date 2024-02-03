@@ -1,0 +1,48 @@
+version: "3.9"
+   
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    networks:
+      - internal_network
+
+  frontend:
+    build: ./frontend/vite-project
+    volumes:
+      - ./frontend/vite-project:/usr/src/app
+    depends_on:
+      - web
+    networks:
+      - internal_network
+
+  web:
+      command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; python manage.py runserver 0.0.0.0:8000'
+      build: ./backend/web-project/WeightLossApp
+      volumes:
+        - ./backend/web-project/WeightLossApp:/code
+      depends_on:
+        - db
+      networks:
+      - internal_network
+  nginx:
+    build: ./nginx
+    ports:
+      - "4050:90"
+    depends_on:
+      - frontend
+      - web
+    networks:
+      - internal_network
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+  
+networks:
+  internal_network:
+    driver: bridge
+  

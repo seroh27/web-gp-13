@@ -25,7 +25,7 @@ const LoginForm: React.FC = () => {
         "user_id": formData.email,
         "password": formData.password,
       };
-      const response = await axios.post('http://localhost:8000/user/login/', modifiedFormData,
+      const response = await axios.post('http://localhost:4050/api/user/login/', modifiedFormData,
         {
           headers: {
               "Content-Type": 'application/json'
