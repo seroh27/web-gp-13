@@ -9,8 +9,7 @@ import { BrowserRouter as BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css';
 import ContactUs from './components/pages/ContactUs/ContactUs.tsx';
 import UserNavBar from './components/pages/UserPage/UserNavBar.tsx';
-import EditInfoForm from './components/pages/UserPage/editInfo.tsx';
-import TodayMeals from './components/pages/UserPage/TodayMeals.tsx';
+import EditInfoForm from './components/pages/UserPage/EditInfo.tsx';
 import MealHistory from './components/pages/UserPage/MealHistory.tsx';
 import CalorieCalc from './components/pages/UserPage/CalorieCalc.tsx';
 

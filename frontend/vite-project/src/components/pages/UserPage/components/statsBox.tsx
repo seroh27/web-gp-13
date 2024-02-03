@@ -1,5 +1,3 @@
-import CircularProgress from '../../../circularProgressBar'
-
 const stats = [
     { name: 'کالری باقی مانده', stat: '1408' },
     { name: 'کالری مصرف شده', stat: '456' },

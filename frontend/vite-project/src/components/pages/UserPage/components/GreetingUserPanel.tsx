@@ -9,7 +9,7 @@ export default function Greeting() {
     randomText = text.tips[randomIndex];
 
     return (
-        <div className="container mx-auto sm:px-80 lg:px-70 pt-16 pb-16">
+        <div className="container mx-auto sm:px-80 lg:px-70 pt-16 pb-16" dir="rtl">
             <div className="flex">
                 <div className="self-center px-8 text-right">
                     <h4 style={{ fontSize: "24px" }} className="text-lg boldfont pb-2">به دایتلی خوش اومدی!</h4>

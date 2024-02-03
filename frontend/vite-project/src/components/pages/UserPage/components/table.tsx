@@ -1,12 +1,60 @@
-import AddFoodButton from "./AddFoodButton"
+import { useState , useEffect } from "react"
 
-const rows = [
-    { name: 'قرمه سبزی', weight: '۱۰۰', calories: '۸۳۱', protein: '۳۴', carb: "۱۳", fat: "۳۴" },
-    { name: 'پنکیک', weight: '۷۰', calories: '۲۷۰', protein: '۳۴', carb: "۱۳", fat: "۳۴" },
-    { name: 'نوشابه', weight: '۱۰۰', calories: '۲۳۰', protein: '۳۴', carb: "۱۳", fat: "۳۴" },
-]
+interface Row {
+    name: string;
+    weight: number;
+    carb: number;
+    calorie: number;
+    protein: number;
+    fat: number;
+}
+
+interface Food {
+    food_name: string;
+    food_calorie_per_hundred_gr: number;
+    food_protein_per_hundred_gr: number;
+    food_carb_per_hundred_gr: number;
+    food_fat_per_hundred_gr: number;
+}
 
 export default function Table() {
+    const [rows, setRows] = useState<Row[]>([]);
+    const [newRowWeight, setNewRowWeight] = useState<number>(0);
+    const [selectedFood, setSelectedFood] = useState<string>('');
+    const [all_foods, setAllFoods] = useState<Food[]>([]);
+    useEffect(() => {
+        fetch('http://localhost:8000/control/foods/')
+          .then(response => response.json())
+          .then(data => setAllFoods(data))
+          .catch(error => console.error('Error fetching food list:', error));
+      }, []);
+    const addRow = () => {
+        if (selectedFood && newRowWeight) {
+            let i = 0;
+            for (i = 0; i < all_foods.length; i++) {
+                if (all_foods[i].food_name == selectedFood) {
+                    break;
+                }
+            }
+          const newCalorie = all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100);
+          const newCarb = all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100);
+          const newProtein = all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100);
+          const newFat = all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100);
+    
+          const newRow: Row = {
+            name: selectedFood,
+            weight: newRowWeight,
+            carb: newCarb,
+            calorie: newCalorie,
+            protein: newProtein,
+            fat: newFat,
+          };
+    
+          setRows([...rows, newRow]);
+          setSelectedFood('');
+          setNewRowWeight(0);
+        }
+      };
     return (
         <div className="px-4 sm:px-6 lg:px-8 mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
@@ -39,7 +87,13 @@ export default function Table() {
                                             نام غذا
                                         </th>
                                         <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                            <AddFoodButton />
+                                            <button
+                                                type="button"
+                                                className="block rounded-md bg-emerald-700 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-emerald-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+                                                onClick={() => addRow()}
+                                            >
+                                                افزودن غذا
+                                            </button>
                                         </th>
                                     </tr>
                                 </thead>
@@ -49,18 +103,48 @@ export default function Table() {
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.fat}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.carb}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.protein}</td>
-                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.calories}</td>
+                                            <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.calorie}</td>
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.weight}</td>
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">
                                                 {row.name}
                                             </td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <a href="#" className="text-emerald-600 hover:text-emerald-900">
+                                                <button className="text-emerald-600 hover:text-emerald-900">
                                                     ویرایش<span className="sr-only">, {row.name}</span>
-                                                </a>
+                                                </button>
                                             </td>
                                         </tr>
                                     ))}
+                                    <tr className="even:bg-gray-50 odd:bg-white">
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">-</td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                            <input className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                type="number"
+                                                value={newRowWeight}
+                                                onChange={(e) => setNewRowWeight(parseFloat(e.target.value))}
+                                                placeholder="وزن"
+                                            />
+                                        </td>
+                                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">
+                                            <select
+                                                value={selectedFood}
+                                                onChange={(e) => {
+                                                    setSelectedFood(e.target.value);
+                                                    console.log(e.target.value);
+                                                }}
+                                                className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                            >
+                                                {all_foods.map((food, index) => (
+                                                <option key={index} value={food.food_name}>
+                                                    {food.food_name}
+                                                </option>
+                                                ))}
+                                            </select>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
