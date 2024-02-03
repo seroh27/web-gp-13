@@ -1,8 +1,5 @@
-import { ClassNames } from '@emotion/react'
-import CircularProgress from '../../circularProgressBar'
 import StatsBox from './components/statsBox'
 import Table from './components/table'
-import Gradient from '../../gradient'
 import Greeting from './components/GreetingUserPanel'
 
 export default function UserPanel() {

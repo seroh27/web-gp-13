@@ -112,6 +112,7 @@ const Table = () => {
                 setSelectedFood('');
                 setSelectedMeal('صبحانه');
                 setNewRowWeight(0);
+                window.location.reload();
             }
             catch (e) {
                 console.log("not added to front");

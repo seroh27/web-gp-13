@@ -182,3 +182,24 @@ def calculate_maintenance_calories(request):
             return Response({'error': 'Missing user_id in query parameters'}, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'This endpoint only supports GET requests'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    
+
+@api_view(['GET'])
+def today_cal(request):
+    if request.method == 'GET':
+        consumed_cal = 0
+        total_cal = 2000
+        meals = Meal.objects.filter(meal_user_id=Token.objects.get(key=request.headers['Authorization']).user.id)
+        meal_serializer = MealSerializer(meals, many=True)
+        for data in meal_serializer.data:
+            if str(data['date_eaten'][:10]) != str(datetime.today().date()):
+                continue
+            consumed_cal += Food.objects.get(food_name=data['meal_food']).food_calorie_per_hundred_gr * data.meal_amount / 100
+        respone = {
+            'consumedCal': consumed_cal,
+            'totalCal': total_cal,
+            'remainingCal': total_cal - consumed_cal
+        }
+        return Response(respone, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'This endpoint only supports GET requests'}, status=status.HTTP_400_BAD_REQUEST)
