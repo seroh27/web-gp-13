@@ -194,7 +194,7 @@ def today_cal(request):
         for data in meal_serializer.data:
             if str(data['date_eaten'][:10]) != str(datetime.today().date()):
                 continue
-            consumed_cal += Food.objects.get(food_name=data['meal_food']).food_calorie_per_hundred_gr * data.meal_amount / 100
+            consumed_cal += Food.objects.get(food_name=data['meal_food']).food_calorie_per_hundred_gr * data['meal_amount'] / 100
         respone = {
             'consumedCal': consumed_cal,
             'totalCal': total_cal,

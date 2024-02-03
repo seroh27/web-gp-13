@@ -1,6 +1,5 @@
 import { useState , useEffect } from "react"
 import axios from "axios";
-import Table from "./table";
 
 export default function StatsBox() {
     const [remainingCal, setRemainingCal] = useState();
