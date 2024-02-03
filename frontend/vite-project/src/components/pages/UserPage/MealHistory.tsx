@@ -1,7 +1,9 @@
+import Chart from './components/CharieChart';
+
 function MealHistory() {
 
     return (
-        <p>history</p>
+        <Chart />
     )
 }
 
