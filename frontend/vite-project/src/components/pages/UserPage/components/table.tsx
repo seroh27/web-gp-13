@@ -215,6 +215,7 @@ const Table = () => {
                                                 value={newRowWeight}
                                                 onChange={(e) => setNewRowWeight(parseFloat(e.target.value))}
                                                 placeholder="وزن"
+                                                min="0"
                                             />
                                         </td>
                                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">

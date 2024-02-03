@@ -203,3 +203,20 @@ def today_cal(request):
         return Response(respone, status=status.HTTP_200_OK)
     else:
         return Response({'error': 'This endpoint only supports GET requests'}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def week_cal_report(request):
+    if request.method == 'GET':
+        meals = Meal.objects.filter(meal_user_id=Token.objects.get(key=request.headers['Authorization']).user.id)
+        meals_n_dates = [(meal.meal_food, meal.meal_amount, datetime.strptime(meal.date_eaten[:10], '%Y-%m-%d')) for meal in meals]
+        print(meals_n_dates)
+        today = datetime.now()
+        categorized_dates = {i: 0 for i in range(1, 8)}
+        for meal_food, meal_amount, date_obj in meals_n_dates:
+            days_difference = (today - date_obj).days
+            if 1 <= days_difference <= 7:
+                calorie = meal_food.food_calorie_per_hundred_gr * meal_amount / 100
+                categorized_dates[days_difference] += calorie
+        return Response(categorized_dates, status=status.HTTP_200_OK)
+    else:
+        return Response({'error': 'This endpoint only supports GET requests'}, status=status.HTTP_400_BAD_REQUEST)

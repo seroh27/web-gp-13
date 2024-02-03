@@ -9,5 +9,6 @@ urlpatterns = [
     path('login/', views.login_view),
     path('todaycal/', views.today_cal),
     path('maintanacecalories/', views.calculate_maintenance_calories),
+    path('weekcalreport/', views.week_cal_report),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)
