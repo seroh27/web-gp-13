@@ -15,7 +15,7 @@ export default function Example(props: Props) {
     <div className="bg-white font">
       <div className="relative isolate px-6 pt-14 lg:px-8">
         <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-0">
-          <img src={Avocado} className="image-zoom" alt="Avocado" style={{ width: '70%', margin: '0 auto' }} />
+          <img src={Avocado} className="hover:grow" alt="Avocado" style={{ width: '70%', margin: '0 auto' }} />
           <div className="text-center">
             <Gradient />
             <h1 className="text-4xl font-bold tracking-tight text-emerald-900 sm:text-6xl">

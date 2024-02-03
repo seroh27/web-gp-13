@@ -1,5 +1,4 @@
 import AddFoodButton from "./AddFoodButton"
-import ProgressBar from "./ProgressBar"
 
 const rows = [
     { name: 'قرمه سبزی', weight: '۱۰۰', calories: '۸۳۱', protein: '۳۴', carb: "۱۳", fat: "۳۴" },
@@ -12,7 +11,6 @@ export default function Table() {
         <div className="px-4 sm:px-6 lg:px-8 mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <ProgressBar />
                 </div>
             </div>
             <div className="mt-8 flow-root">

@@ -37,7 +37,7 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ value, min, max, si
         fill="none"
         stroke="#e0e0e0"
         style={{
-            borderRadius: '100px',
+          borderRadius: '100px',
         }}
       />
       <circle
@@ -47,9 +47,10 @@ const CircularProgress: React.FC<CircularProgressProps> = ({ value, min, max, si
         r={radius}
         strokeWidth={strokeWidth}
         fill="none"
-        stroke="#007bff"
+        stroke="#047857"
         strokeDasharray={circumference}
         strokeDashoffset={isLoading ? circumference : offset}
+        strokeLinecap="round" // Add this line to make the progress line rounded
         style={{
           transition: isLoading ? 'none' : 'stroke-dashoffset 1s ease-in-out',
           borderRadius: '100px',
