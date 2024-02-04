@@ -78,7 +78,7 @@ to run the django backend independently use this command
 # Frontend
 The frontend is built using the **Vite** build tool. We utilized **Tailwind CSS** to craft our components and incorporated packages such as **Heroicons** for icons.
 
-To run the frontend, you first need to install Vite using this command in the /Users/seenbook/Desktop/web-gp-13/frontend/vite-project path:
+To run the frontend, you first need to install Vite using this command in the your/path/to/web-gp-13/frontend/vite-project path:
 ```bash
 npm i vite
 ```
@@ -104,3 +104,5 @@ There are some primary features such as logging in, logging out, an "About Us" p
 * In "Dietly," there are dozens of recipes with their respective calorie counts noted. You can view the calorie content of these foods and also learn the recipes.
 
 * "Dietly" also provides a helpful diet tip each time you log in to your panel.
+
+* In "Dietly," you can measure your BMI and determine if you are overweight, underweight, or within a healthy range.
