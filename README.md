@@ -76,4 +76,31 @@ to run the django backend independently use this command
 
     docker run -p 5173:5173 
 # Frontend
-The frontend is designed us
+The frontend is built using the **Vite** build tool. We utilized **Tailwind CSS** to craft our components and incorporated packages such as **Heroicons** for icons.
+
+To run the frontend, you first need to install Vite using this command in the /Users/seenbook/Desktop/web-gp-13/frontend/vite-project path:
+```bash
+npm i vite
+```
+
+then use this command to start the project:
+```bash
+npm run dev
+```
+
+Now, you'll see a local address displayed, such as http://localhost:5173/. Type this URL into your browser to view the frontend.
+
+# Features
+This is primarily a diet app designed to help you control your daily calorie intake. It will monitor and ensure that you do not consume more calories than necessary, taking into account factors such as your weight, height, and other relevant metrics.
+
+There are some primary features such as logging in, logging out, an "About Us" page, a "Contact Us" section, and more, but the exclusive features are:
+
+* With the "Dietly" app, you can easily calculate the daily calories you need.
+
+* You can add,edit or remove the foods you eat each day using this app. It will calculate both the calories you've consumed and the calories that remain based on your intake.
+
+* You can also monitor the chart and tables displaying your calorie consumption over the past week. For example, you can review what you ate three days ago.
+
+* In "Dietly," there are dozens of recipes with their respective calorie counts noted. You can view the calorie content of these foods and also learn the recipes.
+
+* "Dietly" also provides a helpful diet tip each time you log in to your panel.
