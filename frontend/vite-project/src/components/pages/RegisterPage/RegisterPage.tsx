@@ -7,6 +7,7 @@ import Gradient from '../../gradient';
 const RegistrationForm: React.FC = () => {
 
   const navigate = useNavigate();
+  const [registered, setRegistered] = useState(false);
 
   const [formData, setFormData] = useState({
     first_name: '',
@@ -28,6 +29,7 @@ const RegistrationForm: React.FC = () => {
   const [heightLimit, setHeightLimit] = useState(true);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    setRegistered(false);
     const { name, value } = e.target;
     if (name === 'password2') {
       if (formData.password !== value && formData.password2 != '') {
@@ -63,6 +65,7 @@ const RegistrationForm: React.FC = () => {
   };
 
   const handleSubmit = async(e: React.FormEvent) => {
+    setRegistered(false);
     e.preventDefault();
     if (passwordsMatch) {
       try {
@@ -85,6 +88,7 @@ const RegistrationForm: React.FC = () => {
             }
           }
         )
+        setRegistered(true);
       } catch (error) {
         if (error.response.data.hasOwnProperty("user_id")) {
           setUniqueEmail(false);
@@ -301,6 +305,9 @@ const RegistrationForm: React.FC = () => {
 >
               ثبت نام
             </button>
+            {registered ? <p dir="rtl" style={{color: 'green', }}>
+              ثبت‌نام با موفقیت انجام شد
+            </p> : null}
           </div>
         </form>
 

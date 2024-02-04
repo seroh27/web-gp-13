@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Gradient from '../../gradient';
 import './CalorieCalc.css';
@@ -114,3 +115,4 @@ function CalorieCalc() {
 }
 
 export default CalorieCalc;
+

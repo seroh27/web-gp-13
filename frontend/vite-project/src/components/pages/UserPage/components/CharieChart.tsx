@@ -37,7 +37,6 @@ export default function Example() {
 
         const dataFromServer = response.data;
 
-        // Transform the response data into series format
         const seriesData = Object.values(dataFromServer);
         
         setChartData((prevData) => ({

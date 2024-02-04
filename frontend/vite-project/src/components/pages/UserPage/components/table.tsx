@@ -62,6 +62,37 @@ const Table = () => {
             console.log(e.response.data);
         }
     }
+    const deleteMeal = async(row: Row) => {
+        let mealType = "";
+        if (row.meal == 'صبحانه') {
+            mealType = "breakfast";
+        }
+        if (row.meal == 'نهار') {
+            mealType = "lunch";
+        }
+        if (row.meal == 'میان‌وعده') {
+            mealType = "snack";
+        }
+        if (row.meal == 'شام') {
+            mealType = "dinner";
+        }
+        const request = {
+            token: localStorage.getItem('token'),
+            meal_food: row.name,
+            meal_type: mealType,
+            meal_amount: row.weight,
+            date_eaten: new Date()
+        }
+        console.log(request);
+        axios.delete('http://localhost:4050/api/user/meallist/', { data: request })
+        .then(response => {
+            console.log(response);
+            window.location.reload();
+        })
+        .catch(error => {
+            console.error('Error making DELETE request:', error);
+        });
+    }
     const addRow = () => {
         if (selectedFood && newRowWeight && selectedMeal) {
             let i = 0;
@@ -175,8 +206,11 @@ const Table = () => {
                                             <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-700">{row.weight}</td>
                                             <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 ">{row.name}</td>
                                             <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                                <button className="text-emerald-600 hover:text-emerald-900">
-                                                    ویرایش<span className="sr-only">, {row.name}</span>
+                                                <button className="text-black-600 hover:text-red-900"
+                                                onClick={() => {
+                                                    deleteMeal(row);
+                                                }}>
+                                                    حذف<span className="sr-only">{row.name}</span>
                                                 </button>
                                             </td>
                                         </tr>

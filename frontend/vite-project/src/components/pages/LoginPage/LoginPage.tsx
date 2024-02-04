@@ -32,9 +32,11 @@ const LoginForm: React.FC = () => {
           }
         }
       )
-      setRedirectToUserPanel(true);
       localStorage.setItem('token', response.data.token)
       localStorage.setItem('first_name', response.data.first_name)
+      localStorage.setItem('user_id', formData.email)
+      console.log(localStorage.getItem('user_id'));
+      setRedirectToUserPanel(true);
     } catch (error) {
       setWrongInfo(true);
       console.log(error.response.data);

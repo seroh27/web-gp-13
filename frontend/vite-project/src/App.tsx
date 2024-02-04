@@ -11,9 +11,9 @@ import ContactUs from './components/pages/ContactUs/ContactUs.tsx';
 import UserNavBar from './components/pages/UserPage/UserNavBar.tsx';
 import EditInfoForm from './components/pages/UserPage/EditInfo.tsx';
 import MealHistory from './components/pages/UserPage/MealHistory.tsx';
-import CalorieCalc from './components/pages/UserPage/CalorieCalc.tsx';
 import Recipe from './components/pages/UserPage/RecipePage/RecipePage.tsx';
 import Admin from './components/pages/AdminPage/Admin.tsx';
+import CalorieCalc from './components/pages/UserPage/CalorieCalc.tsx';
 
 function App() {
 
@@ -57,16 +57,16 @@ function App() {
                         element={<div><UserNavBar /><Recipe /></div>}
                     />
                     <Route
-                        path="/caloriecalc"
-                        element={<div><UserNavBar /><CalorieCalc /></div>}
-                    />
-                    <Route
                         path="/editInfo"
                         element={<div><UserNavBar /><EditInfoForm /></div>}
                     />
                     <Route
                         path="/admin"
                         element={<div><Admin /></div>}
+                    />
+                    <Route
+                        path="/caloriecalc"
+                        element={<div><UserNavBar /><CalorieCalc /></div>}
                     />
                 </Routes>
             </BrowserRouter >

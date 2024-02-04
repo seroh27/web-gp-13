@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , useEffect } from 'react-router-dom';
 import axios from 'axios'
 import '../../../App.css'
 import Gradient from '../../gradient';
@@ -9,11 +9,6 @@ const EditInfo: React.FC = () => {
     const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        password: '',
-        password2: '',
         gender: 'Male',
         weight: '',
         height: '',
@@ -21,30 +16,12 @@ const EditInfo: React.FC = () => {
         exercise_level: 'little or no exercise',
     });
 
-    const [passwordsMatch, setPasswordsMatch] = useState(true);
-    const [uniqueEmail, setUniqueEmail] = useState(true);
     const [ageLimit, setAgeLimit] = useState(true);
     const [weightLimit, setWeightLimit] = useState(true);
     const [heightLimit, setHeightLimit] = useState(true);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
-        if (name === 'password2') {
-            if (formData.password !== value && formData.password2 != '') {
-                setPasswordsMatch(false);
-            } else {
-                setPasswordsMatch(true);
-            }
-        }
-        else if (name == 'email') {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (emailRegex.test(value)) {
-                setUniqueEmail(true);
-            } else {
-                setUniqueEmail(false);
-            }
-        }
-
         if (name == 'weight') {
             setWeightLimit(true);
         }
@@ -54,7 +31,6 @@ const EditInfo: React.FC = () => {
         else if (name == 'age') {
             setAgeLimit(true);
         }
-
         if (name == "gender") {
             console.log(value);
         }
@@ -64,41 +40,24 @@ const EditInfo: React.FC = () => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (passwordsMatch) {
-            try {
-                const modifiedFormData = {
-                    "user_id": formData.email,
-                    "first_name": formData.first_name,
-                    "last_name": formData.last_name,
-                    "age": parseInt(formData.age),
-                    "weight": parseInt(formData.weight),
-                    "height": parseInt(formData.height),
-                    "activity_level": formData.exercise_level,
-                    "password": formData.password,
-                    "password2": formData.password2,
-                    "gender": formData.gender,
-                };
-                const response = await axios.post('http://localhost:4050/api/user/register/', modifiedFormData,
-                    {
-                        headers: {
-                            "Content-Type": 'application/json'
-                        }
-                    }
-                )
-            } catch (error) {
-                if (error.response.data.hasOwnProperty("user_id")) {
-                    setUniqueEmail(false);
-                }
-                if (error.response.data.hasOwnProperty("weight")) {
-                    setWeightLimit(false);
-                }
-                if (error.response.data.hasOwnProperty("height")) {
-                    setHeightLimit(false);
-                }
-                if (error.response.data.hasOwnProperty("age")) {
-                    setAgeLimit(false);
-                }
-            }
+        if (weightLimit && ageLimit && heightLimit) {
+            const data = {
+                "token": localStorage.getItem('token'),
+                "user_id": localStorage.getItem('user_id'),
+                "age": parseInt(formData.age),
+                "weight": parseInt(formData.weight),
+                "height": parseInt(formData.height),
+                "activity_level": formData.exercise_level,
+                "gender": formData.gender,
+            };
+            console.log(data);
+            axios.put('http://localhost:4050/api/user/userdetail/', data)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.error('Error making PUT request:', error);
+            });
         }
     };
 
@@ -213,6 +172,7 @@ const EditInfo: React.FC = () => {
                         <button
                             type="submit"
                             className="flex w-full justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-emerald-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            onClick={() => handleSubmit}
                         >
                             ثبت تغییرات
                         </button>

@@ -12,7 +12,6 @@ function NavBar() {
     { name: 'تماس با ما', href: '/contact' },
     { name: 'ثبت‌نام', href: '/register' },
     { name: 'ورود', href: '/login' },
-    { name: 'پنل', href: '/panel' },
     { name: 'ادمین پنل', href: '/admin' },
   ];
 
@@ -24,7 +23,7 @@ function NavBar() {
             <span className="sr-only">Dietly</span>
             <img
               className="h-8 w-auto"
-              src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
+              src="https://www.svgrepo.com/show/48219/avocado.svg"
               alt=""
             />
           </a>
