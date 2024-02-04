@@ -1,4 +1,4 @@
-import { useState , useEffect } from "react"
+import { useState, useEffect } from "react"
 import axios from "axios";
 
 export default function StatsBox() {
@@ -13,12 +13,12 @@ export default function StatsBox() {
                 "Authorization": localStorage.getItem('token')
             }
         })
-        .then(data => {
-            setConsumedCal(data.data.consumedCal)
-            setRemainingCal(data.data.remainingCal)
-            setTotalCal(data.data.totalCal)
-        })
-        .catch((err) => console.error(err));
+            .then(data => {
+                setConsumedCal(data.data.consumedCal)
+                setRemainingCal(data.data.remainingCal)
+                setTotalCal(data.data.totalCal)
+            })
+            .catch((err) => console.error(err));
         setCount(100);
     }, [])
 

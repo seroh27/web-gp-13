@@ -12,6 +12,7 @@ const navigation = [
   { name: 'پنل من', href: '/panel' },
   { name: 'تاریخچه', href: '/mealhistory' },
   { name: 'محاسبۀ کالری', href: '/caloriecalc' },
+  { name: 'دستور پخت', href: '/recipe' },
 ]
 const userNavigation = [
   { name: 'به‌روزرسانی اطلاعات', href: '/editinfo' },
@@ -33,17 +34,16 @@ function UserNavBar() {
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <div className="hidden md:block">
-                  <div className="ml-10 flex items-baseline space-x-4">
+                  <div className="ml-10 mx-2 center flex items-baseline ">
                     {navigation.map((item) => (
                       <a
                         key={item.name}
                         href={item.href}
                         className={classNames(
                           'text-gray-300 hover:bg-white hover:text-emerald-900',
-                          'rounded-md px-2 py-2 text-sm font-medium'
+                          'rounded-md px-4 py-2'
                         )}
-                      >
-                        {item.name}
+                      >{item.name}
                       </a>
                     ))}
                   </div>
