@@ -11,7 +11,7 @@ const user = {
 const navigation = [
   { name: 'پنل من', href: '/panel' },
   { name: 'تاریخچه', href: '/mealhistory' },
-  { name: 'محاسبۀ کالری', href: '/caloriecalc' },
+  { name: 'شاخص توده بدنی', href: '/caloriecalc' },
   { name: 'دستور پخت', href: '/recipe' },
 ]
 const userNavigation = [
