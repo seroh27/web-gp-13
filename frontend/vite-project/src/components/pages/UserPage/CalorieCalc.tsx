@@ -1,7 +1,7 @@
 function CalorieCalc() {
 
     return (
-        <p>calorie</p>
+        <p>calore</p>
     )
 }
 
