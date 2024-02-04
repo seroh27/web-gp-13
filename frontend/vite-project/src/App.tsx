@@ -13,6 +13,7 @@ import EditInfoForm from './components/pages/UserPage/EditInfo.tsx';
 import MealHistory from './components/pages/UserPage/MealHistory.tsx';
 import CalorieCalc from './components/pages/UserPage/CalorieCalc.tsx';
 import Recipe from './components/pages/UserPage/RecipePage/RecipePage.tsx';
+import Admin from './components/pages/AdminPage/Admin.tsx';
 
 function App() {
 
@@ -63,8 +64,12 @@ function App() {
                         path="/editInfo"
                         element={<div><UserNavBar /><EditInfoForm /></div>}
                     />
+                    <Route
+                        path="/admin"
+                        element={<div><Admin /></div>}
+                    />
                 </Routes>
-            </BrowserRouter>
+            </BrowserRouter >
         </>
     );
 }
