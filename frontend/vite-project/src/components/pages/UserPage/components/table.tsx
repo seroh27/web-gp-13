@@ -70,10 +70,10 @@ const Table = () => {
                     break;
                 }
             }
-            const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100)));
-            const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100)));
-            const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100)));
-            const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100)));
+            const newCalorie = Number((all_foods[i].food_calorie_per_hundred_gr * (newRowWeight / 100))).toFixed(1);
+            const newCarb = Number((all_foods[i].food_carb_per_hundred_gr * (newRowWeight / 100))).toFixed(1);
+            const newProtein = Number((all_foods[i].food_protein_per_hundred_gr * (newRowWeight / 100))).toFixed(1);
+            const newFat = Number((all_foods[i].food_fat_per_hundred_gr * (newRowWeight / 100))).toFixed(1);
     
             const newRow: Row = {
                 name: selectedFood,

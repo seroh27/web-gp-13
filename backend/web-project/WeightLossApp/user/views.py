@@ -28,10 +28,10 @@ def meal_list(request):
                 'name': data['meal_food'],
                 'weight': data['meal_amount'],
                 'meal': 'صبحانه' if data['meal_type'] == 'breakfast' else 'نهار' if data['meal_type'] == 'lunch' else 'شام' if data['meal_type'] == 'dinner' else 'میان‌وعده',
-                'calorie': data['meal_amount'] * food.food_calorie_per_hundred_gr,
-                'carb': data['meal_amount'] * food.food_carb_per_hundred_gr,
-                'fat': data['meal_amount'] * food.food_fat_per_hundred_gr,
-                'protein': data['meal_amount'] * food.food_protein_per_hundred_gr,
+                'calorie': data['meal_amount'] * food.food_calorie_per_hundred_gr / 100,
+                'carb': data['meal_amount'] * food.food_carb_per_hundred_gr / 100,
+                'fat': data['meal_amount'] * food.food_fat_per_hundred_gr / 100,
+                'protein': data['meal_amount'] * food.food_protein_per_hundred_gr / 100,
             })
         return Response(respone)
     if request.method == 'POST':
@@ -188,7 +188,7 @@ def calculate_maintenance_calories(request):
 def today_cal(request):
     if request.method == 'GET':
         consumed_cal = 0
-        total_cal = 2000
+        total_cal = maintenance_calorie(Token.objects.get(key=request.headers['Authorization']).user)
         meals = Meal.objects.filter(meal_user_id=Token.objects.get(key=request.headers['Authorization']).user.id)
         meal_serializer = MealSerializer(meals, many=True)
         for data in meal_serializer.data:
@@ -196,9 +196,9 @@ def today_cal(request):
                 continue
             consumed_cal += Food.objects.get(food_name=data['meal_food']).food_calorie_per_hundred_gr * data['meal_amount'] / 100
         respone = {
-            'consumedCal': consumed_cal,
-            'totalCal': total_cal,
-            'remainingCal': total_cal - consumed_cal
+            'consumedCal': round(consumed_cal, 2),
+            'totalCal': round(total_cal, 2),
+            'remainingCal': round(total_cal - consumed_cal, 2)
         }
         return Response(respone, status=status.HTTP_200_OK)
     else:
@@ -207,10 +207,12 @@ def today_cal(request):
 @api_view(['GET'])
 def week_cal_report(request):
     if request.method == 'GET':
+        print('ayo week cal rep')
         meals = Meal.objects.filter(meal_user_id=Token.objects.get(key=request.headers['Authorization']).user.id)
-        meals_n_dates = [(meal.meal_food, meal.meal_amount, datetime.strptime(meal.date_eaten[:10], '%Y-%m-%d')) for meal in meals]
-        print(meals_n_dates)
-        today = datetime.now()
+        meals_n_dates = [(meal.meal_food, meal.meal_amount, meal.date_eaten) for meal in meals]
+        print(meals_n_dates[0])
+        today = datetime.now().date()
+        print(today)
         categorized_dates = {i: 0 for i in range(1, 8)}
         for meal_food, meal_amount, date_obj in meals_n_dates:
             days_difference = (today - date_obj).days
@@ -220,3 +222,19 @@ def week_cal_report(request):
         return Response(categorized_dates, status=status.HTTP_200_OK)
     else:
         return Response({'error': 'This endpoint only supports GET requests'}, status=status.HTTP_400_BAD_REQUEST)
+    
+def maintenance_calorie(user):
+    if user.gender == 'Male':
+        bmr = 10 * user.weight + 6.25 * user.height - 5 * user.age + 5
+    else:
+        bmr = 10 * user.weight + 6.25 * user.height - 5 * user.age - 161
+    activity_levels = {
+        'little or no exercise': 1.2,
+        'light exercise': 1.375,
+        'moderate exercise': 1.55,
+        'hard exercise': 1.725,
+        'very hard exercise': 1.9
+    }
+    print(bmr)
+    activity_level = activity_levels.get(user.activity_level, 1.2)
+    return int(bmr * activity_level)
