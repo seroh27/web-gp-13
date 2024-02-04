@@ -1,0 +1,58 @@
+/* App.cs */
+.container { 
+	max-width: 200px; 
+	margin: 0 auto; 
+	padding: 20px; 
+} 
+
+h1 { 
+	color: #1eff00f3; 
+	text-align: center; 
+	margin-bottom: 20px; 
+} 
+
+.input-container { 
+	margin-bottom: 10px; 
+    width: ;
+} 
+
+label { 
+	display: block; 
+	font-weight: bold; 
+	margin-bottom: 5px; 
+} 
+
+input[type='number'] { 
+	width: 100%; 
+	padding: 10px; 
+	font-size: 16px; 
+    border-radius: 11px;
+} 
+
+.calculate-btn { 
+	display: block; 
+	width: 100%; 
+	padding: 10px; 
+	background-color: #007bff; 
+	color: #fff; 
+	font-size: 16px; 
+	border: none; 
+	border-radius: 4px; 
+	cursor: pointer; 
+} 
+
+.result { 
+	margin-top: 20px; 
+	padding: 10px; 
+	background-color: #f0f0f0; 
+	border-radius: 4px; 
+} 
+
+.bmi-value { 
+	font-weight: bold; 
+} 
+
+.bmi-message { 
+	color: #007bff; 
+	font-weight: bold; 
+}
