@@ -78,18 +78,6 @@ to run the django backend independently use this command
 # Frontend
 The frontend is built using the **Vite** build tool. We utilized **Tailwind CSS** to craft our components and incorporated packages such as **Heroicons** for icons.
 
-To run the frontend, you first need to install Vite using this command in the your/path/to/web-gp-13/frontend/vite-project path:
-```bash
-npm i vite
-```
-
-then use this command to start the project:
-```bash
-npm run dev
-```
-
-Now, you'll see a local address displayed, such as http://localhost:5173/. Type this URL into your browser to view the frontend.
-
 # Features
 This is primarily a diet app designed to help you control your daily calorie intake. It will monitor and ensure that you do not consume more calories than necessary, taking into account factors such as your weight, height, and other relevant metrics.
 
